@@ -58,7 +58,7 @@ impl FovRecursiveShadowCasting {
                         break;
                     }
                     if dx * dx + dy * dy <= r2 && (light_walls || map.transparent[off]) {
-                        map.fov[off] = true;
+                        map.fov.set(off, true);
                     }
                     if blocked {
                         if !map.transparent[off] {
@@ -132,6 +132,6 @@ impl FovAlgorithm for FovRecursiveShadowCasting {
                 light_walls,
             );
         }
-        map.fov[x + y * map.width] = true;
+        map.fov.set(x + y * map.width,true);
     }
 }

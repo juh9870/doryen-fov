@@ -10,7 +10,4 @@ repository = "https://github.com/jice-nospam/doryen-fov"
 keywords = ["roguelike", "console", "field_of_view", "fov"]
 
 [dependencies]
-
-[dev-dependencies]
-doryen-rs = "1.*"
-rand = "0.6.*"
+bitvec = "1.0.1"

@@ -2,6 +2,7 @@ mod fov_dummy;
 mod fov_recursive_shadowcasting;
 mod fov_restrictive;
 
+use bitvec::vec::BitVec;
 pub use fov_dummy::*;
 pub use fov_recursive_shadowcasting::*;
 pub use fov_restrictive::*;
@@ -13,25 +14,26 @@ pub struct MapData {
     /// height of the map in cells
     pub height: usize,
     /// width x height vector of transparency information
-    pub transparent: Vec<bool>,
+    pub transparent: BitVec,
     /// width x height vector of field of view information
-    pub fov: Vec<bool>,
+    pub fov: BitVec,
 }
 
 impl MapData {
     /// create a new empty map : no walls and empty field of view
     pub fn new(width: usize, height: usize) -> Self {
+        
         Self {
             width,
             height,
-            transparent: vec![true; width * height],
-            fov: vec![false; width * height],
+            transparent: BitVec::repeat(true, width * height),
+            fov: BitVec::repeat(false, width * height),
         }
     }
     /// reset the fov information to false
     pub fn clear_fov(&mut self) {
         for off in 0..self.width * self.height {
-            self.fov[off] = false;
+            self.fov.set(off, false);
         }
     }
     pub fn is_in_fov(&self, x: usize, y: usize) -> bool {
@@ -41,10 +43,10 @@ impl MapData {
         self.transparent[x + y * self.width]
     }
     pub fn set_fov(&mut self, x: usize, y: usize, in_fov: bool) {
-        self.fov[x + y * self.width] = in_fov;
+        self.fov.set(x + y * self.width, in_fov);
     }
     pub fn set_transparent(&mut self, x: usize, y: usize, is_transparent: bool) {
-        self.transparent[x + y * self.width] = is_transparent;
+        self.transparent.set(x + y * self.width, is_transparent);
     }
 }
 

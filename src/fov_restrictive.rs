@@ -100,7 +100,7 @@ impl FovRestrictive {
                     }
                     if visible {
                         done = false;
-                        map.fov[c] = true;
+                        map.fov.set(c, true);
                         // if the cell is opaque, block the adjacent slopes
                         if !map.transparent[c] {
                             if min_angle >= start_slope {
@@ -116,7 +116,7 @@ impl FovRestrictive {
                                 total_obstacles += 1;
                             }
                             if !light_walls {
-                                map.fov[c] = false;
+                                map.fov.set(c, false);
                             }
                         }
                     }
@@ -202,7 +202,7 @@ impl FovRestrictive {
                     }
                     if visible {
                         done = false;
-                        map.fov[c] = true;
+                        map.fov.set(c, true);
                         // if the cell is opaque, block the adjacent slopes
                         if !map.transparent[c] {
                             if min_angle >= start_slope {
@@ -218,7 +218,7 @@ impl FovRestrictive {
                                 total_obstacles += 1;
                             }
                             if !light_walls {
-                                map.fov[c] = false;
+                                map.fov.set(c, false);
                             }
                         }
                     }
@@ -259,7 +259,7 @@ impl FovAlgorithm for FovRestrictive {
         }
 
         // set PC's position as visible
-        map.fov[player_x + player_y * map.width] = true;
+        map.fov.set(player_x + player_y * map.width, true);
 
         // compute the 4 quadrants of the map
         self.quadrant(
