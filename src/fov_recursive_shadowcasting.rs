@@ -5,18 +5,16 @@ const MULT1: [i32; 8] = [0, 1, -1, 0, 0, -1, 1, 0];
 const MULT2: [i32; 8] = [0, 1, 1, 0, 0, -1, -1, 0];
 const MULT3: [i32; 8] = [1, 0, 0, 1, -1, 0, 0, -1];
 
+#[derive(Default)]
 pub struct FovRecursiveShadowCasting {}
 
-impl Default for FovRecursiveShadowCasting {
-    fn default() -> Self {
-        Self {}
-    }
-}
 
 impl FovRecursiveShadowCasting {
     pub fn new() -> Self {
         Default::default()
     }
+    #[allow(clippy::too_many_arguments)]
+    #[allow(clippy::only_used_in_recursion)]
     fn cast_light(
         &self,
         map: &mut MapData,

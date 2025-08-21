@@ -1,5 +1,6 @@
 use crate::{FovAlgorithm, MapData};
 
+#[derive(Default)]
 pub struct FovRestrictive {
     start_angle: Vec<f64>,
     end_angle: Vec<f64>,
@@ -8,20 +9,12 @@ pub struct FovRestrictive {
 
 // Mingos' Restrictive Precise Angle Shadowcasting (MRPAS) v1.2
 
-impl Default for FovRestrictive {
-    fn default() -> Self {
-        Self {
-            start_angle: Vec::new(),
-            end_angle: Vec::new(),
-            allocated: 0,
-        }
-    }
-}
 
 impl FovRestrictive {
     pub fn new() -> Self {
         Default::default()
     }
+    #[allow(clippy::too_many_arguments)]
     fn quadrant(
         &mut self,
         map: &mut MapData,

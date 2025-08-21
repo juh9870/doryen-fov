@@ -1,3 +1,4 @@
+#![allow(clippy::disallowed_methods)]
 mod fov_dummy;
 mod fov_recursive_shadowcasting;
 mod fov_restrictive;
@@ -88,10 +89,10 @@ mod tests {
         let mut map = MapData::new(10, 10);
         map.set_transparent(5, 5, false);
         fov.compute_fov(&mut map, 5, 6, 0, false);
-        assert_eq!(map.is_in_fov(5, 6), true);
-        assert_eq!(map.is_in_fov(5, 7), true);
-        assert_eq!(map.is_in_fov(5, 5), false);
-        assert_eq!(map.is_in_fov(5, 4), false);
+        assert!(map.is_in_fov(5, 6));
+        assert!(map.is_in_fov(5, 7));
+        assert!(!map.is_in_fov(5, 5));
+        assert!(!map.is_in_fov(5, 4));
     }
 
     #[test]
@@ -100,9 +101,9 @@ mod tests {
         let mut map = MapData::new(10, 10);
         map.set_transparent(5, 5, false);
         fov.compute_fov(&mut map, 5, 6, 0, false);
-        assert_eq!(map.is_in_fov(5, 6), true);
-        assert_eq!(map.is_in_fov(5, 7), true);
-        assert_eq!(map.is_in_fov(5, 5), false);
-        assert_eq!(map.is_in_fov(5, 4), false);
+        assert!(map.is_in_fov(5, 6));
+        assert!(map.is_in_fov(5, 7));
+        assert!(!map.is_in_fov(5, 5));
+        assert!(!map.is_in_fov(5, 4));
     }
 }

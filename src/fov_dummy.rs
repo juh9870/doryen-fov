@@ -1,12 +1,8 @@
 use crate::{FovAlgorithm, MapData};
 
+#[derive(Default)]
 pub struct FovDummy {}
 
-impl Default for FovDummy {
-    fn default() -> Self {
-        Self {}
-    }
-}
 
 impl FovDummy {
     pub fn new() -> Self {
@@ -23,6 +19,6 @@ impl FovAlgorithm for FovDummy {
         _max_radius: usize,
         _light_walls: bool,
     ) {
-        map.fov[..].copy_from_slice(&map.transparent[..]);
+        map.fov[..].copy_from_bitslice(&map.transparent[..]);
     }
 }
