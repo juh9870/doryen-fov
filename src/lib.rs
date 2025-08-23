@@ -8,6 +8,7 @@ pub use fov_dummy::*;
 pub use fov_recursive_shadowcasting::*;
 pub use fov_restrictive::*;
 
+#[derive(Debug, Clone)]
 /// Some basic structure to store map cells' transparency and fov computation result
 pub struct MapData {
     /// width of the map in cells
@@ -23,7 +24,6 @@ pub struct MapData {
 impl MapData {
     /// create a new empty map : no walls and empty field of view
     pub fn new(width: usize, height: usize) -> Self {
-        
         Self {
             width,
             height,
@@ -33,9 +33,7 @@ impl MapData {
     }
     /// reset the fov information to false
     pub fn clear_fov(&mut self) {
-        for off in 0..self.width * self.height {
-            self.fov.set(off, false);
-        }
+        self.fov.fill(false);
     }
     pub fn is_in_fov(&self, x: usize, y: usize) -> bool {
         self.fov[x + y * self.width]
@@ -48,6 +46,14 @@ impl MapData {
     }
     pub fn set_transparent(&mut self, x: usize, y: usize, is_transparent: bool) {
         self.transparent.set(x + y * self.width, is_transparent);
+    }
+    
+    pub fn resize(&mut self, new_width: usize, new_height: usize) {
+        self.width = new_width;
+        self.height = new_height;
+        let len = new_width * new_height;
+        self.transparent.resize(len, true);
+        self.fov.resize(len, false);
     }
 }
 
